@@ -13,6 +13,8 @@
 		0DF1753621A4B92200ED5845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DF1753521A4B92200ED5845 /* Assets.xcassets */; };
 		0DF1753921A4B92200ED5845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DF1753721A4B92200ED5845 /* LaunchScreen.storyboard */; };
 		0DF1754421A4B92200ED5845 /* Home_Away_ChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1754321A4B92200ED5845 /* Home_Away_ChallengeTests.swift */; };
+		13FC71448B460B48FFDE771B /* Pods_Home_Away_Challenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */; };
+		461CE54183FEB92D7DDE3E51 /* Pods_Home_Away_ChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC914D86D15304DD0023EB8 /* Pods_Home_Away_ChallengeTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		002A7F3CA23C8DB47A8D62B4 /* Pods-Home Away ChallengeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away ChallengeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away ChallengeTests/Pods-Home Away ChallengeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		01D760E66BA4BB4972462EA9 /* Pods-Home Away Challenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away Challenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge.release.xcconfig"; sourceTree = "<group>"; };
 		0DF1752B21A4B92000ED5845 /* Home Away Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home Away Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF1752E21A4B92000ED5845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DF1753021A4B92000ED5845 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +40,10 @@
 		0DF1753F21A4B92200ED5845 /* Home Away ChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Home Away ChallengeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF1754321A4B92200ED5845 /* Home_Away_ChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home_Away_ChallengeTests.swift; sourceTree = "<group>"; };
 		0DF1754521A4B92200ED5845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3ED6D1713995CE228D527C89 /* Pods-Home Away Challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away Challenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge.debug.xcconfig"; sourceTree = "<group>"; };
+		EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Home_Away_Challenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB9D7F693A3E485592D400BD /* Pods-Home Away ChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away ChallengeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away ChallengeTests/Pods-Home Away ChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
+		FCC914D86D15304DD0023EB8 /* Pods_Home_Away_ChallengeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Home_Away_ChallengeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13FC71448B460B48FFDE771B /* Pods_Home_Away_Challenge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				461CE54183FEB92D7DDE3E51 /* Pods_Home_Away_ChallengeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +72,8 @@
 				0DF1752D21A4B92000ED5845 /* Home Away Challenge */,
 				0DF1754221A4B92200ED5845 /* Home Away ChallengeTests */,
 				0DF1752C21A4B92000ED5845 /* Products */,
+				A7EEDE24528F18CA3057D62F /* Pods */,
+				6F2ACDDA8C1792F53FF5F676 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +108,26 @@
 			path = "Home Away ChallengeTests";
 			sourceTree = "<group>";
 		};
+		6F2ACDDA8C1792F53FF5F676 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */,
+				FCC914D86D15304DD0023EB8 /* Pods_Home_Away_ChallengeTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A7EEDE24528F18CA3057D62F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3ED6D1713995CE228D527C89 /* Pods-Home Away Challenge.debug.xcconfig */,
+				01D760E66BA4BB4972462EA9 /* Pods-Home Away Challenge.release.xcconfig */,
+				002A7F3CA23C8DB47A8D62B4 /* Pods-Home Away ChallengeTests.debug.xcconfig */,
+				FB9D7F693A3E485592D400BD /* Pods-Home Away ChallengeTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -103,9 +135,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DF1754821A4B92200ED5845 /* Build configuration list for PBXNativeTarget "Home Away Challenge" */;
 			buildPhases = (
+				B4E8B349EB8FD62262DCC4D9 /* [CP] Check Pods Manifest.lock */,
 				0DF1752721A4B92000ED5845 /* Sources */,
 				0DF1752821A4B92000ED5845 /* Frameworks */,
 				0DF1752921A4B92000ED5845 /* Resources */,
+				43ECABA6E345C0FD7A41987E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -120,6 +154,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DF1754B21A4B92200ED5845 /* Build configuration list for PBXNativeTarget "Home Away ChallengeTests" */;
 			buildPhases = (
+				C28CBC3F55F17383F2859BA6 /* [CP] Check Pods Manifest.lock */,
 				0DF1753B21A4B92200ED5845 /* Sources */,
 				0DF1753C21A4B92200ED5845 /* Frameworks */,
 				0DF1753D21A4B92200ED5845 /* Resources */,
@@ -191,6 +226,73 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		43ECABA6E345C0FD7A41987E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
+				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
+				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4E8B349EB8FD62262DCC4D9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Home Away Challenge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C28CBC3F55F17383F2859BA6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Home Away ChallengeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0DF1752721A4B92000ED5845 /* Sources */ = {
@@ -358,6 +460,7 @@
 		};
 		0DF1754921A4B92200ED5845 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3ED6D1713995CE228D527C89 /* Pods-Home Away Challenge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -376,6 +479,7 @@
 		};
 		0DF1754A21A4B92200ED5845 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01D760E66BA4BB4972462EA9 /* Pods-Home Away Challenge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -394,6 +498,7 @@
 		};
 		0DF1754C21A4B92200ED5845 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 002A7F3CA23C8DB47A8D62B4 /* Pods-Home Away ChallengeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -415,6 +520,7 @@
 		};
 		0DF1754D21A4B92200ED5845 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB9D7F693A3E485592D400BD /* Pods-Home Away ChallengeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

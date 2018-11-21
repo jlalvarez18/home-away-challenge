@@ -29,6 +29,10 @@ struct Event: Decodable, Equatable {
     let type: String
     let id: Int
     
+    var idString: String {
+        return "\(self.id)"
+    }
+    
     static func == (lhs: Event, rhs: Event) -> Bool {
         return lhs.id == rhs.id
     }

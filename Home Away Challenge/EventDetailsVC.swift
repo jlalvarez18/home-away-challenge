@@ -16,7 +16,10 @@ class EventDetailsVC: ASViewController<ASDisplayNode> {
     init(event: Event) {
         self.event = event
         
-        super.init(node: ASDisplayNode())
+        let node = ASDisplayNode()
+        node.backgroundColor = UIColor.white
+        
+        super.init(node: node)
         
         self.title = self.event.title
     }
@@ -44,5 +47,17 @@ class EventDetailsVC: ASViewController<ASDisplayNode> {
         }()
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(self.toggleFavorite))
+    }
+    
+    @objc func toggleFavorite() {
+        let isFavorite = FavoritesStore.isFavorite(event: event)
+        
+        if isFavorite {
+            FavoritesStore.unfavorite(event: event)
+        } else {
+            FavoritesStore.favorite(event: self.event)
+        }
     }
 }

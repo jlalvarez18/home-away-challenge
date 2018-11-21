@@ -17,6 +17,7 @@
 		0DF1755621A4DBE500ED5845 /* Diff+Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */; };
 		0DF1755821A4E33100ED5845 /* EventCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755721A4E33100ED5845 /* EventCellNode.swift */; };
 		0DF1755A21A4F91C00ED5845 /* EventDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755921A4F91C00ED5845 /* EventDetailsVC.swift */; };
+		0DF1755C21A5173300ED5845 /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755B21A5173300ED5845 /* FavoritesStore.swift */; };
 		13FC71448B460B48FFDE771B /* Pods_Home_Away_Challenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */; };
 		461CE54183FEB92D7DDE3E51 /* Pods_Home_Away_ChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC914D86D15304DD0023EB8 /* Pods_Home_Away_ChallengeTests.framework */; };
 /* End PBXBuildFile section */
@@ -48,6 +49,7 @@
 		0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+Texture.swift"; sourceTree = "<group>"; };
 		0DF1755721A4E33100ED5845 /* EventCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellNode.swift; sourceTree = "<group>"; };
 		0DF1755921A4F91C00ED5845 /* EventDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsVC.swift; sourceTree = "<group>"; };
+		0DF1755B21A5173300ED5845 /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
 		3ED6D1713995CE228D527C89 /* Pods-Home Away Challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away Challenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge.debug.xcconfig"; sourceTree = "<group>"; };
 		EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Home_Away_Challenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB9D7F693A3E485592D400BD /* Pods-Home Away ChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away ChallengeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away ChallengeTests/Pods-Home Away ChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				0DF1755921A4F91C00ED5845 /* EventDetailsVC.swift */,
 				0DF1755721A4E33100ED5845 /* EventCellNode.swift */,
 				0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */,
+				0DF1755B21A5173300ED5845 /* FavoritesStore.swift */,
 				0DF1755421A4DBCA00ED5845 /* Services */,
 				0DF1755321A4DBC300ED5845 /* Data */,
 				0DF1753521A4B92200ED5845 /* Assets.xcassets */,
@@ -263,6 +266,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/Differ/Differ.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
@@ -273,6 +277,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differ.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
@@ -335,6 +340,7 @@
 				0DF1754F21A4BAD900ED5845 /* SeatGeekService.swift in Sources */,
 				0DF1755A21A4F91C00ED5845 /* EventDetailsVC.swift in Sources */,
 				0DF1752F21A4B92000ED5845 /* AppDelegate.swift in Sources */,
+				0DF1755C21A5173300ED5845 /* FavoritesStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

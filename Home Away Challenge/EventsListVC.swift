@@ -25,6 +25,7 @@ class EventsListVC: ASViewController<ASTableNode> {
     private let table: ASTableNode
     
     private var currentSearchRequest: DataRequest?
+    private var observerToken: String?
     
     private var events: [Event] = [] {
         didSet {
@@ -34,6 +35,14 @@ class EventsListVC: ASViewController<ASTableNode> {
                                          insertionAnimation: UITableView.RowAnimation.automatic)
         }
     }
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.tintColor = UIColor.white
+        searchBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
+        searchBar.placeholder = "Search for events"
+        return searchBar
+    }()
     
     init() {
         let node = ASTableNode(style: .plain)
@@ -52,19 +61,25 @@ class EventsListVC: ASViewController<ASTableNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         self.table.view.keyboardDismissMode = .onDrag
         
-        let searchBar = UISearchBar()
-        searchBar.tintColor = UIColor.white
-        searchBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
-        searchBar.placeholder = "Search for events"
-        searchBar.delegate = self
+        self.searchBar.delegate = self
         
-        self.navigationItem.titleView = searchBar
+        self.navigationItem.titleView = self.searchBar
         
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let token = self.observerToken {
+            FavoritesStore.removeObserver(token: token)
+            
+            self.observerToken = nil
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -82,7 +97,9 @@ extension EventsListVC: ASTableDataSource {
         let event = self.events[indexPath.row]
         
         return {
-            return EventCellNode(event: event, isFavorited: indexPath.row == 0)
+            let isFavorite = FavoritesStore.isFavorite(event: event)
+            
+            return EventCellNode(event: event, isFavorited: isFavorite)
         }
     }
 }
@@ -93,6 +110,10 @@ extension EventsListVC: ASTableDelegate {
         tableNode.deselectRow(at: indexPath, animated: true)
         
         let event = self.events[indexPath.row]
+        
+        self.observerToken = FavoritesStore.observe(event: event, block: { (isFavorite) in
+            self.table.reloadRows(at: [indexPath], with: .automatic)
+        })
         
         let vc = EventDetailsVC(event: event)
         
@@ -129,9 +150,14 @@ extension EventsListVC: UISearchBarDelegate {
         }
     }
     
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
-        searchBar.resignFirstResponder()
+        searchBar.endEditing(true)
         
         self.events = []
         
@@ -139,6 +165,6 @@ extension EventsListVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+        searchBar.endEditing(true)
     }
 }

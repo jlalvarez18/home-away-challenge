@@ -40,11 +40,29 @@ class FavoritesStore {
     
     private let storage: HybridStorage<Bool>
     
-    typealias EventFavoriteObserver = (Bool) -> Void
-    
     private static let shared = FavoritesStore()
     
-    private var observers: [String: ObservationToken] = [:]
+    typealias EventId = String
+    typealias ObserverBlock = (Bool) -> Void
+    
+    struct StoreToken: Equatable {
+        fileprivate let id = UUID()
+        fileprivate let eventId: EventId
+        fileprivate let observerToken: ObservationToken
+        fileprivate let block: ObserverBlock
+        
+        fileprivate init(eventId: EventId, token: ObservationToken, block: @escaping ObserverBlock) {
+            self.eventId = eventId
+            self.observerToken = token
+            self.block = block
+        }
+        
+        static func == (lhs: FavoritesStore.StoreToken, rhs: FavoritesStore.StoreToken) -> Bool {
+            return lhs.id == rhs.id
+        }
+    }
+    
+    private var observers: [EventId: [StoreToken]] = [:]
     
     private init() {
         self.storage = HybridStorage(memoryStorage: self.memoryStorage, diskStorage: self.diskStorage)
@@ -76,28 +94,47 @@ class FavoritesStore {
         }
     }
     
-    static func observe(event: Event, block: @escaping EventFavoriteObserver) -> String {
-        let token = UUID().uuidString
-        
-        let observerToken = self.shared.storage.addObserver(shared, forKey: event.idString) { (observer, storage, change) in
+    static func observe(event: Event, block: @escaping ObserverBlock) -> StoreToken {
+        let token = self.shared.storage.addObserver(shared, forKey: event.idString) { (observer, storage, change) in
+            guard let tokens = self.shared.observers[event.idString] else {
+                return
+            }
+
             switch change {
             case .edit(_, _):
-                block(true)
+                for t in tokens {
+                    t.block(true)
+                }
             case .remove:
-                block(false)
+                for t in tokens {
+                    t.block(false)
+                }
             }
         }
         
-        self.shared.observers[token] = observerToken
+        let storeToken = StoreToken(eventId: event.idString, token: token, block: block)
         
-        return token
+        var contexts = self.shared.observers[event.idString] ?? []
+        contexts.append(storeToken)
+        
+        self.shared.observers[event.idString] = contexts
+        
+        return storeToken
     }
     
-    static func removeObserver(token: String) {
-        guard let observerToken = self.shared.observers[token] else {
+    static func removeObserver(token: StoreToken) {
+        token.observerToken.cancel()
+        
+        guard var tokens = self.shared.observers[token.eventId] else {
             return
         }
         
-        observerToken.cancel()
+        guard let index = tokens.firstIndex(of: token) else {
+            return
+        }
+        
+        tokens.remove(at: index)
+        
+        self.shared.observers[token.eventId] = tokens
     }
 }

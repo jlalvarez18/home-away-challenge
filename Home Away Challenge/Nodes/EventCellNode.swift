@@ -25,9 +25,6 @@ private let ImageSize = CGSize(width: 80, height: 80)
 
 class EventCellNode: ASCellNode {
     
-    let event: Event
-    let isFavorited: Bool
-    
     lazy var imageNode: ASNetworkImageNode = {
         let node = ASNetworkImageNode()
         node.cornerRadius = 9.0
@@ -72,11 +69,22 @@ class EventCellNode: ASCellNode {
         return formatter
     }()
     
-    init(event: Event, isFavorited: Bool) {
+    private var observerToken: FavoritesStore.StoreToken?
+    
+    let event: Event
+    
+    private var isFavorited: Bool = false {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    init(event: Event) {
         self.event = event
-        self.isFavorited = isFavorited
         
         super.init()
+        
+        self.isFavorited = FavoritesStore.isFavorite(event: event)
         
         self.imageNode.url = self.event.performers.first?.image
         self.titleNode.attributedText = NSAttributedString(string: event.title, attributes: Attributes.title)
@@ -84,6 +92,14 @@ class EventCellNode: ASCellNode {
         self.dateNode.attributedText = NSAttributedString(string: EventCellNode.dateFormatter.string(from: event.datetimeLocal), attributes: Attributes.subtitle)
         
         self.automaticallyManagesSubnodes = true
+    }
+    
+    override func didLoad() {
+        super.didLoad()
+        
+        self.observerToken = FavoritesStore.observe(event: self.event) { (isFavorite) in
+            self.isFavorited = isFavorite
+        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

@@ -25,7 +25,6 @@ class EventsListVC: ASViewController<ASTableNode> {
     private let table: ASTableNode
     
     private var currentSearchRequest: DataRequest?
-    private var observerToken: String?
     
     private var events: [Event] = [] {
         didSet {
@@ -67,7 +66,6 @@ class EventsListVC: ASViewController<ASTableNode> {
         self.searchBar.delegate = self
         
         self.navigationItem.titleView = self.searchBar
-        
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
     }
@@ -75,11 +73,7 @@ class EventsListVC: ASViewController<ASTableNode> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let token = self.observerToken {
-            FavoritesStore.removeObserver(token: token)
-            
-            self.observerToken = nil
-        }
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -97,9 +91,7 @@ extension EventsListVC: ASTableDataSource {
         let event = self.events[indexPath.row]
         
         return {
-            let isFavorite = FavoritesStore.isFavorite(event: event)
-            
-            return EventCellNode(event: event, isFavorited: isFavorite)
+            return EventCellNode(event: event)
         }
     }
 }
@@ -110,10 +102,6 @@ extension EventsListVC: ASTableDelegate {
         tableNode.deselectRow(at: indexPath, animated: true)
         
         let event = self.events[indexPath.row]
-        
-        self.observerToken = FavoritesStore.observe(event: event, block: { (isFavorite) in
-            self.table.reloadRows(at: [indexPath], with: .automatic)
-        })
         
         let vc = EventDetailsVC(event: event)
         

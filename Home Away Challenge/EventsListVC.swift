@@ -22,7 +22,9 @@ extension ASNavigationController {
 
 class EventsListVC: ASViewController<ASTableNode> {
     
-    let table: ASTableNode
+    private let table: ASTableNode
+    
+    private var currentSearchRequest: DataRequest?
     
     private var events: [Event] = [] {
         didSet {
@@ -51,14 +53,18 @@ class EventsListVC: ASViewController<ASTableNode> {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.table.view.keyboardDismissMode = .onDrag
         
+        let searchBar = UISearchBar()
+        searchBar.tintColor = UIColor.white
+        searchBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
+        searchBar.placeholder = "Search for events"
+        searchBar.delegate = self
+        
+        self.navigationItem.titleView = searchBar
+        
+        self.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
-        
-        SeatGeekService.getEvents(query: "Texas Rangers").done { (events) in
-            self.events = events
-        }.catch { (error) in
-            print(error)
-        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -85,5 +91,54 @@ extension EventsListVC: ASTableDelegate {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: true)
+        
+        let event = self.events[indexPath.row]
+        
+        let vc = EventDetailsVC(event: event)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension EventsListVC: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let request = self.currentSearchRequest {
+            request.cancel()
+        }
+        
+        guard searchText.isEmpty == false else {
+            self.events = []
+            return
+        }
+        
+        let (request, promise) = SeatGeekService.getEvents(query: searchText)
+        
+        self.currentSearchRequest = request
+        
+        promise.done { (events) in
+            self.events = events
+        }.ensure {
+            self.currentSearchRequest = nil
+        }.catch { (error) in
+            print(error)
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+        
+        self.events = []
+        
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

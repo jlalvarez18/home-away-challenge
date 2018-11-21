@@ -71,14 +71,17 @@ class SeatGeekService {
         return decoder
     }()
     
-    static func getEvents(query: String) -> Promise<[Event]> {
+    static func getEvents(query: String) -> (request: DataRequest, promise: Promise<[Event]>) {
         struct Result: Decodable {
             let events: [Event]
         }
         
-        return manager
-            .request(Router.getEvents(query: query))
+        let request = manager.request(Router.getEvents(query: query))
+            
+        let promise = request
             .responseDecodable(Result.self, queue: nil, decoder: decoder)
             .map { $0.events }
+        
+        return (request: request, promise: promise)
     }
 }

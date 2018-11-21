@@ -50,8 +50,8 @@ struct Performer: Decodable {
 }
 
 struct Venue: Decodable {
-    let city: String
-    let state: String
+    let city: String?
+    let state: String?
     let name: String
     
     let displayLocation: String

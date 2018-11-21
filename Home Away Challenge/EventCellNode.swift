@@ -64,32 +64,40 @@ class EventCellNode: ASCellNode {
         return node
     }()
     
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        
+        return formatter
+    }()
+    
     init(event: Event, isFavorited: Bool) {
         self.event = event
         self.isFavorited = isFavorited
-        
-        let df = DateFormatter()
-        df.dateStyle = .medium
-        df.timeStyle = .short
         
         super.init()
         
         self.imageNode.url = self.event.performers.first?.image
         self.titleNode.attributedText = NSAttributedString(string: event.title, attributes: Attributes.title)
         self.locationNode.attributedText = NSAttributedString(string: event.venue.displayLocation, attributes: Attributes.subtitle)
-        self.dateNode.attributedText = NSAttributedString(string: df.string(from: event.datetimeLocal), attributes: Attributes.subtitle)
+        self.dateNode.attributedText = NSAttributedString(string: EventCellNode.dateFormatter.string(from: event.datetimeLocal), attributes: Attributes.subtitle)
         
         self.automaticallyManagesSubnodes = true
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let imageSpec: ASLayoutSpec
+        let imageSpec: ASLayoutSpec?
         
-        if self.isFavorited {
-            imageSpec = ASAbsoluteLayoutSpec(sizing: ASAbsoluteLayoutSpecSizing.sizeToFit,
-                                             children: [self.imageNode, self.likeImageNode])
+        if self.imageNode.url != nil {
+            if self.isFavorited {
+                imageSpec = ASAbsoluteLayoutSpec(sizing: ASAbsoluteLayoutSpecSizing.sizeToFit,
+                                                 children: [self.imageNode, self.likeImageNode])
+            } else {
+                imageSpec = ASAbsoluteLayoutSpec(children: [self.imageNode])
+            }
         } else {
-            imageSpec = ASAbsoluteLayoutSpec(children: [self.imageNode])
+            imageSpec = nil
         }
         
         let labelStack = ASStackLayoutSpec(direction: .vertical,
@@ -105,7 +113,7 @@ class EventCellNode: ASCellNode {
                                           spacing: 20.0,
                                           justifyContent: .start,
                                           alignItems: .start,
-                                          children: [imageSpec, labelStack])
+                                          children: [imageSpec, labelStack].compactMap { $0 })
         
         let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         let insetSpec = ASInsetLayoutSpec(insets: insets, child: fullStack)

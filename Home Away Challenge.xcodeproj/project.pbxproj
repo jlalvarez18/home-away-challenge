@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0DF1752F21A4B92000ED5845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1752E21A4B92000ED5845 /* AppDelegate.swift */; };
-		0DF1753121A4B92000ED5845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1753021A4B92000ED5845 /* ViewController.swift */; };
-		0DF1753421A4B92000ED5845 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DF1753221A4B92000ED5845 /* Main.storyboard */; };
+		0DF1753121A4B92000ED5845 /* EventsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1753021A4B92000ED5845 /* EventsListVC.swift */; };
 		0DF1753621A4B92200ED5845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DF1753521A4B92200ED5845 /* Assets.xcassets */; };
 		0DF1753921A4B92200ED5845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DF1753721A4B92200ED5845 /* LaunchScreen.storyboard */; };
 		0DF1754421A4B92200ED5845 /* Home_Away_ChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1754321A4B92200ED5845 /* Home_Away_ChallengeTests.swift */; };
+		0DF1754F21A4BAD900ED5845 /* SeatGeekService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1754E21A4BAD900ED5845 /* SeatGeekService.swift */; };
+		0DF1755121A4C09100ED5845 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755021A4C09100ED5845 /* Event.swift */; };
+		0DF1755621A4DBE500ED5845 /* Diff+Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */; };
+		0DF1755821A4E33100ED5845 /* EventCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755721A4E33100ED5845 /* EventCellNode.swift */; };
 		13FC71448B460B48FFDE771B /* Pods_Home_Away_Challenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */; };
 		461CE54183FEB92D7DDE3E51 /* Pods_Home_Away_ChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC914D86D15304DD0023EB8 /* Pods_Home_Away_ChallengeTests.framework */; };
 /* End PBXBuildFile section */
@@ -32,14 +35,17 @@
 		01D760E66BA4BB4972462EA9 /* Pods-Home Away Challenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away Challenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge.release.xcconfig"; sourceTree = "<group>"; };
 		0DF1752B21A4B92000ED5845 /* Home Away Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home Away Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF1752E21A4B92000ED5845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0DF1753021A4B92000ED5845 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0DF1753321A4B92000ED5845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0DF1753021A4B92000ED5845 /* EventsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListVC.swift; sourceTree = "<group>"; };
 		0DF1753521A4B92200ED5845 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0DF1753821A4B92200ED5845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0DF1753A21A4B92200ED5845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DF1753F21A4B92200ED5845 /* Home Away ChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Home Away ChallengeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF1754321A4B92200ED5845 /* Home_Away_ChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home_Away_ChallengeTests.swift; sourceTree = "<group>"; };
 		0DF1754521A4B92200ED5845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DF1754E21A4BAD900ED5845 /* SeatGeekService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatGeekService.swift; sourceTree = "<group>"; };
+		0DF1755021A4C09100ED5845 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+Texture.swift"; sourceTree = "<group>"; };
+		0DF1755721A4E33100ED5845 /* EventCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellNode.swift; sourceTree = "<group>"; };
 		3ED6D1713995CE228D527C89 /* Pods-Home Away Challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away Challenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge.debug.xcconfig"; sourceTree = "<group>"; };
 		EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Home_Away_Challenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB9D7F693A3E485592D400BD /* Pods-Home Away ChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away ChallengeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away ChallengeTests/Pods-Home Away ChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,8 +96,11 @@
 			isa = PBXGroup;
 			children = (
 				0DF1752E21A4B92000ED5845 /* AppDelegate.swift */,
-				0DF1753021A4B92000ED5845 /* ViewController.swift */,
-				0DF1753221A4B92000ED5845 /* Main.storyboard */,
+				0DF1753021A4B92000ED5845 /* EventsListVC.swift */,
+				0DF1755721A4E33100ED5845 /* EventCellNode.swift */,
+				0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */,
+				0DF1755421A4DBCA00ED5845 /* Services */,
+				0DF1755321A4DBC300ED5845 /* Data */,
 				0DF1753521A4B92200ED5845 /* Assets.xcassets */,
 				0DF1753721A4B92200ED5845 /* LaunchScreen.storyboard */,
 				0DF1753A21A4B92200ED5845 /* Info.plist */,
@@ -106,6 +115,22 @@
 				0DF1754521A4B92200ED5845 /* Info.plist */,
 			);
 			path = "Home Away ChallengeTests";
+			sourceTree = "<group>";
+		};
+		0DF1755321A4DBC300ED5845 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0DF1755021A4C09100ED5845 /* Event.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		0DF1755421A4DBCA00ED5845 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0DF1754E21A4BAD900ED5845 /* SeatGeekService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		6F2ACDDA8C1792F53FF5F676 /* Frameworks */ = {
@@ -214,7 +239,6 @@
 			files = (
 				0DF1753921A4B92200ED5845 /* LaunchScreen.storyboard in Resources */,
 				0DF1753621A4B92200ED5845 /* Assets.xcassets in Resources */,
-				0DF1753421A4B92000ED5845 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +260,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Differ/Differ.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
@@ -245,6 +270,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differ.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
@@ -299,7 +325,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DF1753121A4B92000ED5845 /* ViewController.swift in Sources */,
+				0DF1755121A4C09100ED5845 /* Event.swift in Sources */,
+				0DF1753121A4B92000ED5845 /* EventsListVC.swift in Sources */,
+				0DF1755821A4E33100ED5845 /* EventCellNode.swift in Sources */,
+				0DF1755621A4DBE500ED5845 /* Diff+Texture.swift in Sources */,
+				0DF1754F21A4BAD900ED5845 /* SeatGeekService.swift in Sources */,
 				0DF1752F21A4B92000ED5845 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,14 +353,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0DF1753221A4B92000ED5845 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0DF1753321A4B92000ED5845 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0DF1753721A4B92200ED5845 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
+  - Differ (1.3.0)
   - PINCache (3.0.1-beta.6):
     - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
     - PINCache/Core (= 3.0.1-beta.6)
@@ -37,6 +38,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Differ
   - PromiseKit
   - PromiseKit/Alamofire
   - Texture
@@ -44,6 +46,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Differ
     - PINCache
     - PINOperation
     - PINRemoteImage
@@ -52,12 +55,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Differ: 9fcee7602542d7c6484ce05a0faec1c11258ed63
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
   PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
   Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
 
-PODFILE CHECKSUM: d24f39c9dd641894af8afdb6196757641cbddcd8
+PODFILE CHECKSUM: b91efee8717b22811e1773d1aa0d5782cd0b186b
 
 COCOAPODS: 1.5.3

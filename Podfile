@@ -12,6 +12,7 @@ target 'Home Away Challenge' do
   pod 'Alamofire'
   pod 'PromiseKit'
   pod 'PromiseKit/Alamofire'
+  pod 'Differ'
 
   target 'Home Away ChallengeTests' do
     inherit! :search_paths

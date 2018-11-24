@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Favorite: Object {
+class Favorite: Object, EventObjectType {
     @objc dynamic var eventId: String = ""
     @objc dynamic var title: String = ""
     @objc dynamic var location: String = ""
@@ -58,51 +58,49 @@ class FavoritesStore {
     
     private init() {}
     
-    static func allFavorites() -> Results<Favorite> {
-        let objects = self.realm.objects(Favorite.self)
-        return objects
-    }
-    
-    static func isFavorite(event: Event) -> Bool {
-        let fav = self.realm.object(ofType: Favorite.self, forPrimaryKey: event.idString)
+    static func isFavorite(event: EventObjectType) -> Bool {
+        let fav = self.realm.object(ofType: Favorite.self, forPrimaryKey: event.eventId)
         
         return fav != nil
     }
     
-    static func favorite(event: Event) throws {
+    static func favorite(event: EventObjectType) throws {
         try self.realm.write {
             let fav = Favorite()
             fav.datetimeLocal = event.datetimeLocal
-            fav.eventId = event.idString
-            fav.location = event.venue.displayLocation
-            fav.imageUrlString = event.performers.first?.image?.absoluteString
+            fav.title = event.title
+            fav.eventId = event.eventId
+            fav.location = event.location
+            fav.imageUrlString = event.imageUrlString
             
             self.realm.add(fav, update: true)
         }
         
-        notifyObservers(eventId: event.idString, value: true)
+        notifyObservers(eventId: event.eventId, value: true)
     }
     
-    static func unfavorite(event: Event) throws {
-        guard let fav = self.realm.object(ofType: Favorite.self, forPrimaryKey: event.idString) else {
+    static func unfavorite(event: EventObjectType) throws {
+        guard let fav = self.realm.object(ofType: Favorite.self, forPrimaryKey: event.eventId) else {
             return
         }
+        
+        let id = event.eventId
         
         try self.realm.write {
             self.realm.delete(fav)
         }
         
-        notifyObservers(eventId: event.idString, value: false)
+        notifyObservers(eventId: id, value: false)
     }
     
     
-    static func observe(event: Event, queue: DispatchQueue = .main, block: @escaping ObserverBlock) -> ObserverToken {
-        let token = ObserverToken(eventId: event.idString, queue: queue, block: block)
+    static func observe(event: EventObjectType, queue: DispatchQueue = .main, block: @escaping ObserverBlock) -> ObserverToken {
+        let token = ObserverToken(eventId: event.eventId, queue: queue, block: block)
 
-        var contexts = self.shared.eventObservers[event.idString] ?? []
+        var contexts = self.shared.eventObservers[event.eventId] ?? []
         contexts.insert(token)
 
-        self.shared.eventObservers[event.idString] = contexts
+        self.shared.eventObservers[event.eventId] = contexts
 
         return token
     }

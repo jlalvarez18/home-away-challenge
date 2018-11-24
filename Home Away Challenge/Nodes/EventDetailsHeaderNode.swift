@@ -42,9 +42,9 @@ class EventDetailsHeaderNode: ASDisplayNode {
     
     private var observerToken: FavoritesStore.ObserverToken?
     
-    let event: Event
+    let event: EventObjectType
     
-    init(event: Event) {
+    init(event: EventObjectType) {
         self.event = event
         
         super.init()
@@ -71,11 +71,19 @@ class EventDetailsHeaderNode: ASDisplayNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        self.backButtonNode.style.alignSelf = .start
+        
+        let spacer = ASLayoutSpec()
+        spacer.style.flexGrow = 1.0
+        
         let contentStack = ASStackLayoutSpec(direction: .horizontal,
                                      spacing: 9.0,
-                                     justifyContent: .spaceBetween,
-                                     alignItems: .start,
-                                     children: [self.backButtonNode, self.titleLabelNode, self.likeButtonNode])
+                                     justifyContent: .start,
+                                     alignItems: .center,
+                                     children: [self.backButtonNode, self.titleLabelNode, spacer, self.likeButtonNode])
+        
+        contentStack.style.flexGrow = 1.0
+        contentStack.style.flexShrink = 1.0
         
         let stack = ASStackLayoutSpec(direction: .vertical,
                                       spacing: 18.0,

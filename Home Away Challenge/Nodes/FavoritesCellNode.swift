@@ -1,8 +1,8 @@
 //
-//  EventCellNode.swift
+//  FavoritesCellNode.swift
 //  Home Away Challenge
 //
-//  Created by Juan Alvarez on 11/20/18.
+//  Created by Juan Alvarez on 11/24/18.
 //  Copyright © 2018 Juan Alvarez. All rights reserved.
 //
 
@@ -16,19 +16,17 @@ private struct Attributes {
     ]
     
     static let subtitle: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1),
+        NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body),
         NSAttributedString.Key.foregroundColor: UIColor.lightGray
     ]
 }
 
-private let ImageSize = CGSize(width: 80, height: 80)
-
-class EventCellNode: ASCellNode {
+class FavoritesCellNode: ASCellNode {
     
     lazy var imageNode: ASNetworkImageNode = {
         let node = ASNetworkImageNode()
         node.cornerRadius = 9.0
-        node.style.preferredSize = ImageSize
+        node.style.preferredSize = CGSize(width: 100, height: 100)
         node.backgroundColor = UIColor.lightGray
         
         return node
@@ -69,25 +67,15 @@ class EventCellNode: ASCellNode {
         return formatter
     }()
     
-    private var observerToken: FavoritesStore.ObserverToken?
+    let favorite: Favorite
     
-    let event: Event
-    
-    private var isFavorited: Bool = false {
-        didSet {
-            self.setNeedsLayout()
-        }
-    }
-    
-    init(event: Event) {
-        self.event = event
+    init(_ favorite: Favorite) {
+        self.favorite = favorite
         
         super.init()
         
-        self.isFavorited = FavoritesStore.isFavorite(event: event)
-        
         self.imageNode.url = {
-            guard let imageUrlString = event.imageUrlString else {
+            guard let imageUrlString = favorite.imageUrlString else {
                 return nil
             }
             
@@ -95,12 +83,12 @@ class EventCellNode: ASCellNode {
             
             return url
         }()
-        self.titleNode.attributedText = NSAttributedString(string: event.title, attributes: Attributes.title)
-        self.locationNode.attributedText = NSAttributedString(string: event.venue.displayLocation, attributes: Attributes.subtitle)
+        self.titleNode.attributedText = NSAttributedString(string: favorite.title, attributes: Attributes.title)
+        self.locationNode.attributedText = NSAttributedString(string: favorite.location, attributes: Attributes.subtitle)
         self.dateNode.attributedText = {
             let dateString: String
             
-            if let date = event.datetimeLocal {
+            if let date = favorite.datetimeLocal {
                 dateString = EventCellNode.dateFormatter.string(from: date)
             } else {
                 dateString = "TBD"
@@ -112,27 +100,9 @@ class EventCellNode: ASCellNode {
         self.automaticallyManagesSubnodes = true
     }
     
-    override func didLoad() {
-        super.didLoad()
-        
-        self.observerToken = FavoritesStore.observe(event: self.event) { (isFavorite) in
-            self.isFavorited = isFavorite
-        }
-    }
-    
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let imageSpec: ASLayoutSpec?
-        
-        if self.imageNode.url != nil {
-            if self.isFavorited {
-                imageSpec = ASAbsoluteLayoutSpec(sizing: ASAbsoluteLayoutSpecSizing.sizeToFit,
-                                                 children: [self.imageNode, self.likeImageNode])
-            } else {
-                imageSpec = ASAbsoluteLayoutSpec(children: [self.imageNode])
-            }
-        } else {
-            imageSpec = nil
-        }
+        let imageSpec = ASAbsoluteLayoutSpec(sizing: ASAbsoluteLayoutSpecSizing.sizeToFit,
+                                             children: [self.imageNode, self.likeImageNode])
         
         let labelStack = ASStackLayoutSpec(direction: .vertical,
                                            spacing: 4.0,
@@ -147,7 +117,7 @@ class EventCellNode: ASCellNode {
                                           spacing: 20.0,
                                           justifyContent: .start,
                                           alignItems: .start,
-                                          children: [imageSpec, labelStack].compactMap { $0 })
+                                          children: [labelStack, imageSpec])
         
         let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         let insetSpec = ASInsetLayoutSpec(insets: insets, child: fullStack)

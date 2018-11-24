@@ -20,10 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         let eventSearch = EventsListVC()
+        let favorites = FavoritesVC()
+        
+        let tab = ASTabBarController()
+        tab.viewControllers = [
+            ASNavigationController(rootViewController: eventSearch),
+            ASNavigationController(rootViewController: favorites)
+        ]
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
-        window?.rootViewController = ASNavigationController(rootViewController: eventSearch)
+        window?.rootViewController = tab
         window?.makeKeyAndVisible()
         
         return true

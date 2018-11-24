@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct Event: Decodable, Equatable {
+struct Event: Decodable, Equatable, EventObjectType {
     let title: String
     let url: URL
     
-    let datetimeLocal: Date
+    let datetimeLocal: Date?
     let datetimeUtc: Date
     
     let announceDate: Date
@@ -29,8 +29,16 @@ struct Event: Decodable, Equatable {
     let type: String
     let id: Int
     
-    var idString: String {
+    var eventId: String {
         return "\(self.id)"
+    }
+    
+    var location: String {
+        return self.venue.displayLocation
+    }
+    
+    var imageUrlString: String? {
+        return self.performers.first?.image?.absoluteString
     }
     
     static func == (lhs: Event, rhs: Event) -> Bool {

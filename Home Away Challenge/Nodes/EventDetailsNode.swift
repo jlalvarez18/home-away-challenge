@@ -47,18 +47,28 @@ class EventDetailsNode: ASDisplayNode {
     
     let headerNode: EventDetailsHeaderNode
     
-    let event: Event
+    let event: EventObjectType
     
-    init(event: Event) {
+    init(event: EventObjectType) {
         self.event = event
         
         self.headerNode = EventDetailsHeaderNode(event: event)
         
         super.init()
         
-        self.imageNode.url = self.event.performers.first?.image
-        self.dateNode.attributedText = NSAttributedString(string: EventCellNode.dateFormatter.string(from: event.datetimeLocal), attributes: Attributes.title)
-        self.locationNode.attributedText = NSAttributedString(string: event.venue.displayLocation, attributes: Attributes.subtitle)
+        self.imageNode.url = URL(string: event.imageUrlString ?? "")
+        self.dateNode.attributedText = {
+            let dateString: String
+            
+            if let date = event.datetimeLocal {
+                dateString = EventCellNode.dateFormatter.string(from: date)
+            } else {
+                dateString = "TBD"
+            }
+            
+            return NSAttributedString(string: dateString, attributes: Attributes.subtitle)
+        }()
+        self.locationNode.attributedText = NSAttributedString(string: event.location, attributes: Attributes.subtitle)
         
         self.backgroundColor = UIColor.white
         

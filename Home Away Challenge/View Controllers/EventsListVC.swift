@@ -65,6 +65,9 @@ class EventsListVC: ASViewController<ASTableNode> {
         
         super.init(node: node)
         
+        self.title = "Events"
+        self.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        
         self.table.dataSource = self
         self.table.delegate = self
     }

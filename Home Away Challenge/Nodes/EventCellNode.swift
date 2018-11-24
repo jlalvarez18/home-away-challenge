@@ -69,7 +69,7 @@ class EventCellNode: ASCellNode {
         return formatter
     }()
     
-    private var observerToken: FavoritesStore.StoreToken?
+    private var observerToken: FavoritesStore.ObserverToken?
     
     let event: Event
     

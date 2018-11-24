@@ -110,9 +110,9 @@
 				0DF1752E21A4B92000ED5845 /* AppDelegate.swift */,
 				0DF1753021A4B92000ED5845 /* EventsListVC.swift */,
 				0DF1755921A4F91C00ED5845 /* EventDetailsVC.swift */,
-				0DF1755D21A5BBAA00ED5845 /* Nodes */,
 				0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */,
 				0DF1755B21A5173300ED5845 /* FavoritesStore.swift */,
+				0DF1755D21A5BBAA00ED5845 /* Nodes */,
 				0DF1755421A4DBCA00ED5845 /* Services */,
 				0DF1755321A4DBC300ED5845 /* Data */,
 				0DF1753521A4B92200ED5845 /* Assets.xcassets */,
@@ -292,6 +292,8 @@
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -303,6 +305,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

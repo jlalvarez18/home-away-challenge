@@ -40,7 +40,7 @@ class EventDetailsHeaderNode: ASDisplayNode {
         return node
     }()
     
-    private var observerToken: FavoritesStore.StoreToken?
+    private var observerToken: FavoritesStore.ObserverToken?
     
     let event: Event
     
@@ -90,10 +90,14 @@ class EventDetailsHeaderNode: ASDisplayNode {
     }
     
     @objc func didTapFavoriteButton() {
-        if (self.likeButtonNode.isSelected) {
-            FavoritesStore.unfavorite(event: self.event)
-        } else {
-            FavoritesStore.favorite(event: self.event)
+        do {
+            if (self.likeButtonNode.isSelected) {
+                try FavoritesStore.unfavorite(event: self.event)
+            } else {
+                try FavoritesStore.favorite(event: self.event)
+            }
+        } catch {
+            print(error)
         }
     }
     

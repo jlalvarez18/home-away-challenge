@@ -7,134 +7,128 @@
 //
 
 import Foundation
-import Cache
+import RealmSwift
+
+class Favorite: Object {
+    @objc dynamic var eventId: String = ""
+    @objc dynamic var title: String = ""
+    @objc dynamic var location: String = ""
+    @objc dynamic var imageUrlString: String?
+    @objc dynamic var datetimeLocal: Date?
+    @objc dynamic var createdAt: Date = Date()
+    
+    override static func primaryKey() -> String? {
+        return "eventId"
+    }
+}
 
 class FavoritesStore {
-    
-    private let memoryStorage: MemoryStorage<Bool> = {
-        let memoryConfig = MemoryConfig(expiry: .never, countLimit: 50, totalCostLimit: 50)
-        let storage = MemoryStorage<Bool>(config: memoryConfig)
-        
-        return storage
-    }()
-    
-    private let diskStorage: DiskStorage<Bool> = {
-        let fm = FileManager.default
-        let url = try! fm.url(for: .documentDirectory,
-                              in: .userDomainMask,
-                              appropriateFor: nil,
-                              create: true)
-        
-        let path = url.appendingPathComponent("MyCache").path
-        
-        try? fm.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-        
-        let diskConfig = DiskConfig(name: "Favorites", protectionType: .complete)
-        
-        let transformer = TransformerFactory.forCodable(ofType: Bool.self)
-        
-        let storage = DiskStorage<Bool>(config: diskConfig, path: path, transformer: transformer)
-        
-        return storage
-    }()
-    
-    private let storage: HybridStorage<Bool>
-    
-    private static let shared = FavoritesStore()
-    
     typealias EventId = String
-    typealias ObserverBlock = (Bool) -> Void
-    
-    struct StoreToken: Equatable {
+
+    struct ObserverToken: Hashable {
         fileprivate let id = UUID()
         fileprivate let eventId: EventId
-        fileprivate let observerToken: ObservationToken
         fileprivate let block: ObserverBlock
+        fileprivate let queue: DispatchQueue
         
-        fileprivate init(eventId: EventId, token: ObservationToken, block: @escaping ObserverBlock) {
+        var hashValue: Int {
+            return id.hashValue
+        }
+
+        fileprivate init(eventId: EventId, queue: DispatchQueue, block: @escaping ObserverBlock) {
             self.eventId = eventId
-            self.observerToken = token
+            self.queue = queue
             self.block = block
         }
-        
-        static func == (lhs: FavoritesStore.StoreToken, rhs: FavoritesStore.StoreToken) -> Bool {
+
+        static func == (lhs: FavoritesStore.ObserverToken, rhs: FavoritesStore.ObserverToken) -> Bool {
             return lhs.id == rhs.id
         }
     }
     
-    private var observers: [EventId: [StoreToken]] = [:]
+    typealias ObserverBlock = (Bool) -> Void
     
-    private init() {
-        self.storage = HybridStorage(memoryStorage: self.memoryStorage, diskStorage: self.diskStorage)
+    private static let shared = FavoritesStore()
+    
+    private static var realm: Realm {
+        return try! Realm()
+    }
+    
+    private var eventObservers: [EventId: Set<ObserverToken>] = [:]
+    
+    private init() {}
+    
+    static func allFavorites() -> Results<Favorite> {
+        let objects = self.realm.objects(Favorite.self)
+        return objects
     }
     
     static func isFavorite(event: Event) -> Bool {
-        do {
-            return try self.shared.storage.existsObject(forKey: event.idString)
-        } catch {
-            print(error)
+        let fav = self.realm.object(ofType: Favorite.self, forPrimaryKey: event.idString)
+        
+        return fav != nil
+    }
+    
+    static func favorite(event: Event) throws {
+        try self.realm.write {
+            let fav = Favorite()
+            fav.datetimeLocal = event.datetimeLocal
+            fav.eventId = event.idString
+            fav.location = event.venue.displayLocation
+            fav.imageUrlString = event.performers.first?.image?.absoluteString
             
-            return false
+            self.realm.add(fav, update: true)
         }
+        
+        notifyObservers(eventId: event.idString, value: true)
     }
     
-    static func favorite(event: Event) {
-        do {
-            try self.shared.storage.setObject(true, forKey: event.idString)
-        } catch {
-            print(error)
+    static func unfavorite(event: Event) throws {
+        guard let fav = self.realm.object(ofType: Favorite.self, forPrimaryKey: event.idString) else {
+            return
         }
+        
+        try self.realm.write {
+            self.realm.delete(fav)
+        }
+        
+        notifyObservers(eventId: event.idString, value: false)
     }
     
-    static func unfavorite(event: Event) {
-        do {
-            try self.shared.storage.removeObject(forKey: event.idString)
-        } catch {
-            print(error)
-        }
-    }
     
-    static func observe(event: Event, block: @escaping ObserverBlock) -> StoreToken {
-        let token = self.shared.storage.addObserver(shared, forKey: event.idString) { (observer, storage, change) in
-            guard let tokens = self.shared.observers[event.idString] else {
-                return
-            }
+    static func observe(event: Event, queue: DispatchQueue = .main, block: @escaping ObserverBlock) -> ObserverToken {
+        let token = ObserverToken(eventId: event.idString, queue: queue, block: block)
 
-            switch change {
-            case .edit(_, _):
-                for t in tokens {
-                    t.block(true)
-                }
-            case .remove:
-                for t in tokens {
-                    t.block(false)
-                }
-            }
-        }
-        
-        let storeToken = StoreToken(eventId: event.idString, token: token, block: block)
-        
-        var contexts = self.shared.observers[event.idString] ?? []
-        contexts.append(storeToken)
-        
-        self.shared.observers[event.idString] = contexts
-        
-        return storeToken
+        var contexts = self.shared.eventObservers[event.idString] ?? []
+        contexts.insert(token)
+
+        self.shared.eventObservers[event.idString] = contexts
+
+        return token
     }
     
-    static func removeObserver(token: StoreToken) {
-        token.observerToken.cancel()
-        
-        guard var tokens = self.shared.observers[token.eventId] else {
+    static func removeObserver(token: ObserverToken) {
+        guard var tokens = self.shared.eventObservers[token.eventId] else {
             return
         }
         
-        guard let index = tokens.firstIndex(of: token) else {
+        tokens.remove(token)
+        
+        self.shared.eventObservers[token.eventId] = tokens
+    }
+}
+
+private extension FavoritesStore {
+    
+    static func notifyObservers(eventId: EventId, value: Bool) {
+        guard let tokens = self.shared.eventObservers[eventId] else {
             return
         }
         
-        tokens.remove(at: index)
-        
-        self.shared.observers[token.eventId] = tokens
+        for token in tokens {
+            token.queue.async {
+                token.block(value)
+            }
+        }
     }
 }

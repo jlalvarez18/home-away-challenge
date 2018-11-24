@@ -14,6 +14,7 @@ target 'Home Away Challenge' do
   pod 'PromiseKit/Alamofire'
   pod 'Differ'
   pod 'Cache'
+  pod 'RealmSwift'
 
   target 'Home Away ChallengeTests' do
     inherit! :search_paths

@@ -29,6 +29,11 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.5.2):
     - PromiseKit/CorePromise
+  - Realm (3.11.2):
+    - Realm/Headers (= 3.11.2)
+  - Realm/Headers (3.11.2)
+  - RealmSwift (3.11.2):
+    - Realm (= 3.11.2)
   - Texture (2.7):
     - Texture/PINRemoteImage (= 2.7)
   - Texture/Core (2.7)
@@ -43,6 +48,7 @@ DEPENDENCIES:
   - Differ
   - PromiseKit
   - PromiseKit/Alamofire
+  - RealmSwift
   - Texture
 
 SPEC REPOS:
@@ -54,6 +60,8 @@ SPEC REPOS:
     - PINOperation
     - PINRemoteImage
     - PromiseKit
+    - Realm
+    - RealmSwift
     - Texture
 
 SPEC CHECKSUMS:
@@ -64,8 +72,10 @@ SPEC CHECKSUMS:
   PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
   PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
+  Realm: 864477d028db77f7c5a0cba64a4892ad53db128a
+  RealmSwift: 12b8262fc08020b47de4fd88eb3d5c9425b34ec7
   Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
 
-PODFILE CHECKSUM: d99b5a9553ba0dc9f969713a09d5fe0e907bd1f9
+PODFILE CHECKSUM: 4e6f73304fc47b1b925443fd3db40d6a9b0127b2
 
 COCOAPODS: 1.5.3

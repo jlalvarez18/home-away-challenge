@@ -43,6 +43,7 @@ struct Performer: Decodable {
     let shortName: String?
     let url: URL
     let image: URL?
+    let images: [String: URL]?
     let id: Int
     let links: [Link]?
     
@@ -51,12 +52,4 @@ struct Performer: Decodable {
         let provider: String
         let url: URL
     }
-}
-
-struct Venue: Decodable {
-    let city: String?
-    let state: String?
-    let name: String
-    
-    let displayLocation: String
 }

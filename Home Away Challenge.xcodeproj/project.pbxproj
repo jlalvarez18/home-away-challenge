@@ -20,6 +20,8 @@
 		0DF1755C21A5173300ED5845 /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755B21A5173300ED5845 /* FavoritesStore.swift */; };
 		0DF1755F21A5BBC000ED5845 /* EventDetailsHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1755E21A5BBC000ED5845 /* EventDetailsHeaderNode.swift */; };
 		0DF1756121A5BF5E00ED5845 /* EventDetailsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1756021A5BF5E00ED5845 /* EventDetailsNode.swift */; };
+		0DF1756321A8C15300ED5845 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1756221A8C15300ED5845 /* Venue.swift */; };
+		0DF1756521A8CB1400ED5845 /* LocalEventCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1756421A8CB1400ED5845 /* LocalEventCellNode.swift */; };
 		13FC71448B460B48FFDE771B /* Pods_Home_Away_Challenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */; };
 		461CE54183FEB92D7DDE3E51 /* Pods_Home_Away_ChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC914D86D15304DD0023EB8 /* Pods_Home_Away_ChallengeTests.framework */; };
 /* End PBXBuildFile section */
@@ -54,6 +56,8 @@
 		0DF1755B21A5173300ED5845 /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
 		0DF1755E21A5BBC000ED5845 /* EventDetailsHeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsHeaderNode.swift; sourceTree = "<group>"; };
 		0DF1756021A5BF5E00ED5845 /* EventDetailsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsNode.swift; sourceTree = "<group>"; };
+		0DF1756221A8C15300ED5845 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		0DF1756421A8CB1400ED5845 /* LocalEventCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalEventCellNode.swift; sourceTree = "<group>"; };
 		3ED6D1713995CE228D527C89 /* Pods-Home Away Challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away Challenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge.debug.xcconfig"; sourceTree = "<group>"; };
 		EA326AC2B7541FDA8B4C3D90 /* Pods_Home_Away_Challenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Home_Away_Challenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB9D7F693A3E485592D400BD /* Pods-Home Away ChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away ChallengeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away ChallengeTests/Pods-Home Away ChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				0DF1755021A4C09100ED5845 /* Event.swift */,
+				0DF1756221A8C15300ED5845 /* Venue.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				0DF1755721A4E33100ED5845 /* EventCellNode.swift */,
+				0DF1756421A8CB1400ED5845 /* LocalEventCellNode.swift */,
 				0DF1756021A5BF5E00ED5845 /* EventDetailsNode.swift */,
 				0DF1755E21A5BBC000ED5845 /* EventDetailsHeaderNode.swift */,
 			);
@@ -349,8 +355,10 @@
 			files = (
 				0DF1755121A4C09100ED5845 /* Event.swift in Sources */,
 				0DF1753121A4B92000ED5845 /* EventsListVC.swift in Sources */,
+				0DF1756521A8CB1400ED5845 /* LocalEventCellNode.swift in Sources */,
 				0DF1755821A4E33100ED5845 /* EventCellNode.swift in Sources */,
 				0DF1756121A5BF5E00ED5845 /* EventDetailsNode.swift in Sources */,
+				0DF1756321A8C15300ED5845 /* Venue.swift in Sources */,
 				0DF1755621A4DBE500ED5845 /* Diff+Texture.swift in Sources */,
 				0DF1754F21A4BAD900ED5845 /* SeatGeekService.swift in Sources */,
 				0DF1755A21A4F91C00ED5845 /* EventDetailsVC.swift in Sources */,

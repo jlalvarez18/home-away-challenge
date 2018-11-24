@@ -26,17 +26,32 @@ class EventsListVC: ASViewController<ASTableNode> {
     
     private var currentSearchRequest: DataRequest?
     
-    private var events: [Event] = [] {
+    private var searchResults: [Event] = [] {
         didSet {
             self.table.animateRowChanges(oldData: oldValue,
-                                         newData: events,
+                                         newData: searchResults,
                                          deletionAnimation: UITableView.RowAnimation.fade,
                                          insertionAnimation: UITableView.RowAnimation.automatic)
         }
     }
     
+    private var localEvents: [Event] = [] {
+        didSet {
+            self.table.reloadData()
+        }
+    }
+    
+    private var isSearching: Bool = false {
+        didSet {
+            self.table.view.separatorStyle = self.isSearching ? .singleLine : .none
+            self.table.reloadData()
+        }
+    }
+    
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
+        searchBar.barStyle = .black
+        searchBar.searchBarStyle = .default
         searchBar.tintColor = UIColor.white
         searchBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
         searchBar.placeholder = "Search for events"
@@ -61,6 +76,7 @@ class EventsListVC: ASViewController<ASTableNode> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.table.view.separatorStyle = .none
         self.table.view.keyboardDismissMode = .onDrag
         
         self.searchBar.delegate = self
@@ -68,6 +84,20 @@ class EventsListVC: ASViewController<ASTableNode> {
         self.navigationItem.titleView = self.searchBar
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
+        
+        firstly { () -> Promise<[Venue]> in
+            return SeatGeekService.getVenues(postalCode: "78681").promise
+        }.then { (venues) -> Promise<[Event]> in
+            return SeatGeekService.getEventsFor(venues: venues).promise
+        }.done { (events) in
+            self.localEvents = events
+            
+            if (self.isSearching != false) {
+                self.table.reloadData()
+            }
+        }.catch { (error) in
+            print(error)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,14 +114,22 @@ class EventsListVC: ASViewController<ASTableNode> {
 extension EventsListVC: ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return self.events.count
+        if self.isSearching {
+            return self.searchResults.count
+        }
+        
+        return self.localEvents.count
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        let event = self.events[indexPath.row]
-        
-        return {
-            return EventCellNode(event: event)
+        if self.isSearching {
+            let event = self.searchResults[indexPath.row]
+            
+            return { return EventCellNode(event: event) }
+        } else {
+            let event = self.localEvents[indexPath.row]
+            
+            return { return LocalEventCellNode(event: event) }
         }
     }
 }
@@ -101,7 +139,12 @@ extension EventsListVC: ASTableDelegate {
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: true)
         
-        let event = self.events[indexPath.row]
+        let event: Event
+        if self.isSearching {
+            event = self.searchResults[indexPath.row]
+        } else {
+            event = self.localEvents[indexPath.row]
+        }
         
         let vc = EventDetailsVC(event: event)
         
@@ -112,6 +155,8 @@ extension EventsListVC: ASTableDelegate {
 extension EventsListVC: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.isSearching = true
+        
         searchBar.setShowsCancelButton(true, animated: true)
     }
     
@@ -121,16 +166,20 @@ extension EventsListVC: UISearchBarDelegate {
         }
         
         guard searchText.isEmpty == false else {
-            self.events = []
+            self.searchResults = []
+            self.isSearching = false
+            self.table.reloadData()
             return
         }
+        
+        self.isSearching = true
         
         let (request, promise) = SeatGeekService.getEvents(query: searchText)
         
         self.currentSearchRequest = request
         
         promise.done { (events) in
-            self.events = events
+            self.searchResults = events
         }.ensure {
             self.currentSearchRequest = nil
         }.catch { (error) in
@@ -147,7 +196,9 @@ extension EventsListVC: UISearchBarDelegate {
         searchBar.text = nil
         searchBar.endEditing(true)
         
-        self.events = []
+        self.searchResults = []
+        self.isSearching = false
+        self.table.reloadData()
         
         searchBar.setShowsCancelButton(false, animated: true)
     }

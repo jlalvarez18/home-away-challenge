@@ -20,6 +20,10 @@ class SeatGeekService {
     enum Router: Alamofire.URLRequestConvertible {
         case getEvents(query: String?)
         case getEvent(id: String)
+        case getEventsLocal(postalCode: String)
+        case getEventsFor(venues: [Venue])
+        
+        case getVenues(postalCode: String)
         
         static let baseUrlString = "https://api.seatgeek.com/2"
         
@@ -38,8 +42,29 @@ class SeatGeekService {
                     }
                     
                     return ("/events", params)
+                    
                 case .getEvent(let eventId):
                     return ("/events/\(eventId)", params)
+                    
+                case .getEventsLocal(let postalCode):
+                    params["postal_code"] = postalCode
+                    params["sort"] = "score.desc"
+                    
+                    return ("/events", params)
+                    
+                case .getEventsFor(let venues):
+                    let ids = venues.map { "\($0.id)" }
+                    
+                    params["venue.id"] = ids.joined(separator: ",")
+                    params["sort"] = "score.desc"
+                    
+                    return ("/events", params)
+                    
+                case .getVenues(let postalCode):
+                    params["postal_code"] = postalCode
+                    params["sort"] = "score.desc"
+                    
+                    return ("/venues", params)
                 }
             }()
             
@@ -72,15 +97,48 @@ class SeatGeekService {
     }()
     
     static func getEvents(query: String) -> (request: DataRequest, promise: Promise<[Event]>) {
+        return performEventRequest(.getEvents(query: query))
+    }
+    
+    static func getEventsFor(venues: [Venue])  -> (request: DataRequest, promise: Promise<[Event]>) {
+        return performEventRequest(.getEventsFor(venues: venues))
+    }
+    
+    static func getLocalEvents(postalCode: String) -> (request: DataRequest, promise: Promise<[Event]>) {
+        return performEventRequest(.getEventsLocal(postalCode: postalCode))
+    }
+    
+    static func getVenues(postalCode: String) -> (request: DataRequest, promise: Promise<[Venue]>) {
+        return performVenueRequest(.getVenues(postalCode: postalCode))
+    }
+}
+
+private extension SeatGeekService {
+    
+    static func performEventRequest(_ router: Router) -> (request: DataRequest, promise: Promise<[Event]>) {
         struct Result: Decodable {
             let events: [Event]
         }
         
-        let request = manager.request(Router.getEvents(query: query))
-            
+        let request = manager.request(router)
+        
         let promise = request
             .responseDecodable(Result.self, queue: nil, decoder: decoder)
             .map { $0.events }
+        
+        return (request: request, promise: promise)
+    }
+    
+    static func performVenueRequest(_ router: Router) -> (request: DataRequest, promise: Promise<[Venue]>) {
+        struct Result: Decodable {
+            let venues: [Venue]
+        }
+        
+        let request = manager.request(router)
+        
+        let promise = request
+            .responseDecodable(Result.self, queue: nil, decoder: decoder)
+            .map { $0.venues }
         
         return (request: request, promise: promise)
     }

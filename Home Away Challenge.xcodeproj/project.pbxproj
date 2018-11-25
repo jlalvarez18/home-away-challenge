@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DABA0EA21AB11D200680944 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DABA0E921AB11D200680944 /* Favorite.swift */; };
+		0DABA0EC21AB11FF00680944 /* Performer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DABA0EB21AB11FF00680944 /* Performer.swift */; };
 		0DF1752F21A4B92000ED5845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1752E21A4B92000ED5845 /* AppDelegate.swift */; };
 		0DF1753121A4B92000ED5845 /* EventsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1753021A4B92000ED5845 /* EventsListVC.swift */; };
 		0DF1753621A4B92200ED5845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DF1753521A4B92200ED5845 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 /* Begin PBXFileReference section */
 		002A7F3CA23C8DB47A8D62B4 /* Pods-Home Away ChallengeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away ChallengeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away ChallengeTests/Pods-Home Away ChallengeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		01D760E66BA4BB4972462EA9 /* Pods-Home Away Challenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home Away Challenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-Home Away Challenge/Pods-Home Away Challenge.release.xcconfig"; sourceTree = "<group>"; };
+		0DABA0E921AB11D200680944 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		0DABA0EB21AB11FF00680944 /* Performer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performer.swift; sourceTree = "<group>"; };
 		0DF1752B21A4B92000ED5845 /* Home Away Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home Away Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF1752E21A4B92000ED5845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DF1753021A4B92000ED5845 /* EventsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListVC.swift; sourceTree = "<group>"; };
@@ -88,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DABA0ED21AB126500680944 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
 		0DF1752221A4B92000ED5845 = {
 			isa = PBXGroup;
 			children = (
@@ -112,15 +124,15 @@
 			isa = PBXGroup;
 			children = (
 				0DF1752E21A4B92000ED5845 /* AppDelegate.swift */,
-				0DF1755521A4DBE500ED5845 /* Diff+Texture.swift */,
 				0DF1755B21A5173300ED5845 /* FavoritesStore.swift */,
+				0DF1753521A4B92200ED5845 /* Assets.xcassets */,
+				0DF1753721A4B92200ED5845 /* LaunchScreen.storyboard */,
+				0DF1753A21A4B92200ED5845 /* Info.plist */,
+				0DABA0ED21AB126500680944 /* Misc */,
 				0DF1756A21AA03E000ED5845 /* View Controllers */,
 				0DF1755D21A5BBAA00ED5845 /* Nodes */,
 				0DF1755421A4DBCA00ED5845 /* Services */,
 				0DF1755321A4DBC300ED5845 /* Data */,
-				0DF1753521A4B92200ED5845 /* Assets.xcassets */,
-				0DF1753721A4B92200ED5845 /* LaunchScreen.storyboard */,
-				0DF1753A21A4B92200ED5845 /* Info.plist */,
 			);
 			path = "Home Away Challenge";
 			sourceTree = "<group>";
@@ -139,6 +151,8 @@
 			children = (
 				0DF1755021A4C09100ED5845 /* Event.swift */,
 				0DF1756221A8C15300ED5845 /* Venue.swift */,
+				0DABA0EB21AB11FF00680944 /* Performer.swift */,
+				0DABA0E921AB11D200680944 /* Favorite.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -371,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DABA0EA21AB11D200680944 /* Favorite.swift in Sources */,
 				0DF1755121A4C09100ED5845 /* Event.swift in Sources */,
 				0DF1753121A4B92000ED5845 /* EventsListVC.swift in Sources */,
 				0DF1756521A8CB1400ED5845 /* LocalEventCellNode.swift in Sources */,
@@ -382,6 +397,7 @@
 				0DF1754F21A4BAD900ED5845 /* SeatGeekService.swift in Sources */,
 				0DF1755A21A4F91C00ED5845 /* EventDetailsVC.swift in Sources */,
 				0DF1755F21A5BBC000ED5845 /* EventDetailsHeaderNode.swift in Sources */,
+				0DABA0EC21AB11FF00680944 /* Performer.swift in Sources */,
 				0DF1756921A9F69A00ED5845 /* FavoritesCellNode.swift in Sources */,
 				0DF1752F21A4B92000ED5845 /* AppDelegate.swift in Sources */,
 				0DF1755C21A5173300ED5845 /* FavoritesStore.swift in Sources */,

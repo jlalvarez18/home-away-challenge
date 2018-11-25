@@ -9,17 +9,9 @@
 import Foundation
 import AsyncDisplayKit
 
-protocol EventObjectType {
-    var title: String { get }
-    var eventId: String { get }
-    var location: String { get }
-    var imageUrlString: String? { get }
-    var datetimeLocal: Date? { get }
-}
-
 class EventDetailsVC: ASViewController<EventDetailsNode> {
     
-    private var event: EventObjectType?
+    private let event: EventObjectType
     
     init(event: EventObjectType) {
         self.event = event

@@ -8,6 +8,14 @@
 
 import Foundation
 
+protocol EventObjectType {
+    var title: String { get }
+    var eventId: String { get }
+    var location: String { get }
+    var imageUrlString: String? { get }
+    var datetimeLocal: Date? { get }
+}
+
 struct Event: Decodable, Equatable, EventObjectType {
     let title: String
     let url: URL
@@ -43,21 +51,5 @@ struct Event: Decodable, Equatable, EventObjectType {
     
     static func == (lhs: Event, rhs: Event) -> Bool {
         return lhs.id == rhs.id
-    }
-}
-
-struct Performer: Decodable {
-    let name: String
-    let shortName: String?
-    let url: URL
-    let image: URL?
-    let images: [String: URL]?
-    let id: Int
-    let links: [Link]?
-    
-    struct Link: Decodable {
-        let id: String?
-        let provider: String
-        let url: URL
     }
 }

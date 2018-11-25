@@ -18,6 +18,15 @@ class FavoritesVC: ASViewController<ASTableNode> {
         return .lightContent
     }
     
+    var favorites: Results<Favorite> {
+        let realm = try! Realm()
+        let results = realm
+            .objects(Favorite.self)
+            .sorted(byKeyPath: "createdAt", ascending: false)
+        
+        return results
+    }
+    
     init() {
         let node = ASTableNode(style: .plain)
         
@@ -49,10 +58,7 @@ class FavoritesVC: ASViewController<ASTableNode> {
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.06647928804, green: 0.191093564, blue: 0.2737248242, alpha: 1)
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        let realm = try! Realm()
-        let results = realm.objects(Favorite.self)
-        
-        self.notificationToken = results.observe { [weak self] (changes) in
+        self.notificationToken = self.favorites.observe { [weak self] (changes) in
             guard let table = self?.node else {
                 return
             }
@@ -88,14 +94,11 @@ class FavoritesVC: ASViewController<ASTableNode> {
 extension FavoritesVC: ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        let realm = try! Realm()
-        let results = realm.objects(Favorite.self)
-        
-        return results.count
+        return self.favorites.count
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        let favorite = try! getFavorite(at: indexPath)
+        let favorite = getFavorite(at: indexPath)
         
         return FavoritesCellNode(favorite)
     }
@@ -106,7 +109,7 @@ extension FavoritesVC: ASTableDelegate {
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: true)
         
-        let favorite = try! getFavorite(at: indexPath)
+        let favorite = getFavorite(at: indexPath)
         
         let vc = EventDetailsVC(event: favorite)
         
@@ -116,11 +119,8 @@ extension FavoritesVC: ASTableDelegate {
 
 private extension FavoritesVC {
     
-    func getFavorite(at indexPath: IndexPath) throws -> Favorite {
-        let realm = try Realm()
-        let results = realm.objects(Favorite.self)
-        
-        let favorite = results[indexPath.row]
+    func getFavorite(at indexPath: IndexPath) -> Favorite {
+        let favorite = self.favorites[indexPath.row]
         
         return favorite
     }

@@ -72,18 +72,14 @@ class EventDetailsHeaderNode: ASDisplayNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         self.backButtonNode.style.alignSelf = .start
-        
-        let spacer = ASLayoutSpec()
-        spacer.style.flexGrow = 1.0
+        self.titleLabelNode.style.alignSelf = .center
         
         let contentStack = ASStackLayoutSpec(direction: .horizontal,
-                                     spacing: 9.0,
-                                     justifyContent: .start,
-                                     alignItems: .center,
-                                     children: [self.backButtonNode, self.titleLabelNode, spacer, self.likeButtonNode])
-        
-        contentStack.style.flexGrow = 1.0
-        contentStack.style.flexShrink = 1.0
+                                             spacing: 9.0,
+                                             justifyContent: .start,
+                                             alignItems: .start,
+                                             children: [self.backButtonNode, self.titleLabelNode, self.likeButtonNode])
+        contentStack.style.alignSelf = .stretch
         
         let stack = ASStackLayoutSpec(direction: .vertical,
                                       spacing: 18.0,
